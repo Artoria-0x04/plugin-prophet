@@ -26,7 +26,7 @@ getHpStyle = (percent) ->
   else if percent <= 50
     'warning'
   else if percent <= 75
-    'info'
+    'primary'
   else
     'success'
 
@@ -531,11 +531,11 @@ module.exports =
                   <td style={getCondStyle @state.shipCond[i]}>Lv. {@state.shipLv[i]} - {tmpName} Cond: {@state.shipCond[i]}</td>
                   <td className="hp-progress">
                     <Grid>
-                      <Col xs={8} class="progress-bar">
+                      <Col xs={7} className="hpBar">
                         <ProgressBar bsStyle={getHpStyle @state.nowHp[i] / @state.maxHp[i] * 100}
                         now={@state.nowHp[i] / @state.maxHp[i] * 100} />
                       </Col>
-                      <Col xs={4} class="hpText">
+                      <Col xs={5} className="hpText">
                         {if @state.damageHp[i] > 0 then "#{@state.nowHp[i]} / #{@state.maxHp[i]} (-#{@state.damageHp[i]})" else "#{@state.nowHp[i]} / #{@state.maxHp[i]}"}
                       </Col>
                     </Grid>
@@ -560,11 +560,11 @@ module.exports =
                   <td>Lv. {@state.shipLv[i]} - {tmpName}</td>
                   <td className="hp-progress">
                     <Grid>
-                      <Col xs={8} class="progress-bar">
+                      <Col xs={7} className="hpBar">
                         <ProgressBar bsStyle={getHpStyle @state.nowHp[i] / @state.maxHp[i] * 100}
                           now={@state.nowHp[i] / @state.maxHp[i] * 100} />
                       </Col>
-                      <Col xs={4} class="hpText">
+                      <Col xs={5} className="hpText">
                           {if @state.damageHp[i] > 0 then "#{@state.nowHp[i]} / #{@state.maxHp[i]} (-#{@state.damageHp[i]})" else "#{@state.nowHp[i]} / #{@state.maxHp[i]}"}
                       </Col>
                     </Grid>
@@ -605,13 +605,13 @@ module.exports =
                     list.push <td>　</td>
                 else
                   list.push <td style={getCondStyle @state.shipCond[i]}>Lv. {@state.shipLv[i]} - {tmpName} Cond: {@state.shipCond[i]}</td>
-                  list.push <Grid><Col xs={8} className="hp-progress"><ProgressBar bsStyle={getHpStyle @state.nowHp[i] / @state.maxHp[i] * 100} now={@state.nowHp[i] / @state.maxHp[i] * 100} /></Col><Col xs={4} class="hptext">{if @state.damageHp[i] > 0 then "#{@state.nowHp[i]} / #{@state.maxHp[i]} (-#{@state.damageHp[i]})" else "#{@state.nowHp[i]} / #{@state.maxHp[i]}"}</Col></Grid>
+                  list.push <Grid><Col xs={7} className="hp-progress"><ProgressBar bsStyle={getHpStyle @state.nowHp[i] / @state.maxHp[i] * 100} now={@state.nowHp[i] / @state.maxHp[i] * 100} /></Col><Col xs={5} class="hptext">{if @state.damageHp[i] > 0 then "#{@state.nowHp[i]} / #{@state.maxHp[i]} (-#{@state.damageHp[i]})" else "#{@state.nowHp[i]} / #{@state.maxHp[i]}"}</Col></Grid>
                 if @state.shipLv[i + 6] == -1
                   for j in [0..1]
                     list.push <td>　</td>
                 else
                   list.push <td>Lv. {@state.shipLv[i + 6]} - {@state.shipName[i + 6]}</td>
-                  list.push <Grid><Col xs={8} className="hp-progress"><ProgressBar bsStyle={getHpStyle @state.nowHp[i + 6] / @state.maxHp[i + 6] * 100} now={@state.nowHp[i + 6] / @state.maxHp[i + 6] * 100} /></Col><Col xs={4} class="hptext">{if @state.damageHp[i + 6] > 0 then "#{@state.nowHp[i + 6]} / #{@state.maxHp[i + 6]} (-#{@state.damageHp[i + 6]})" else "#{@state.nowHp[i + 6]} / #{@state.maxHp[i + 6]}"}</Col></Grid>
+                  list.push <Grid><Col xs={7} className="hp-progress"><ProgressBar bsStyle={getHpStyle @state.nowHp[i + 6] / @state.maxHp[i + 6] * 100} now={@state.nowHp[i + 6] / @state.maxHp[i + 6] * 100} /></Col><Col xs={5} class="hptext">{if @state.damageHp[i + 6] > 0 then "#{@state.nowHp[i + 6]} / #{@state.maxHp[i + 6]} (-#{@state.damageHp[i + 6]})" else "#{@state.nowHp[i + 6]} / #{@state.maxHp[i + 6]}"}</Col></Grid>
                 continue if (@state.shipLv[i] == -1 && @state.shipLv[i + 6] == -1)
                 <tr key={i}>
                   {list}

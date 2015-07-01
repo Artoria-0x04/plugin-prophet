@@ -21,8 +21,7 @@
   border: none;
   margin-bottom: 0px;
 }
-#prophet .hp-progress .progress-bar{
-  /*padding-top: 8px;*/
+#prophet .hp-progress .hpBar{
   padding-top: 3px;
 }
 #prophet .hp-progress .progress {
