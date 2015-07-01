@@ -4,7 +4,7 @@ request = Promise.promisifyAll require('request')
 {relative, join} = require 'path-extra'
 fs = require 'fs-extra'
 {_, $, $$, React, ReactBootstrap, ROOT, resolveTime, layout, toggleModal} = window
-{Table, ProgressBar, Grid, Input, Col, Alert} = ReactBootstrap
+{Table, ProgressBar, Grid, Input, Col, Alert, ListGroup, ListGroupItem} = ReactBootstrap
 {APPDATA_PATH, SERVER_HOSTNAME} = window
 
 window.addEventListener 'layout.change', (e) ->
@@ -12,7 +12,7 @@ window.addEventListener 'layout.change', (e) ->
 
 getCondStyle = (cond) ->
   if cond > 49
-    color: '#FFFF00'
+    color: '#ffd600'
   else if cond < 20
     color: '#DD514C'
   else if cond < 30
@@ -509,7 +509,8 @@ module.exports =
 
     componentDidMount: ->
       window.addEventListener 'game.response', @handleResponse
-
+    componentWillUnmount: ->
+      window.removeEventListener 'game.response', @handleResponse
     render: ->
       if layout == 'horizonal'
         <div>
@@ -529,9 +530,15 @@ module.exports =
                 <tr key={i + 1}>
                   <td style={getCondStyle @state.shipCond[i]}>Lv. {@state.shipLv[i]} - {tmpName} Cond: {@state.shipCond[i]}</td>
                   <td className="hp-progress">
-                    <ProgressBar bsStyle={getHpStyle @state.nowHp[i] / @state.maxHp[i] * 100}
-                      now={@state.nowHp[i] / @state.maxHp[i] * 100}
-                      label={if @state.damageHp[i] > 0 then "#{@state.nowHp[i]} / #{@state.maxHp[i]} (-#{@state.damageHp[i]})" else "#{@state.nowHp[i]} / #{@state.maxHp[i]}"} />
+                    <Grid>
+                      <Col xs={8} class="progress-bar">
+                        <ProgressBar bsStyle={getHpStyle @state.nowHp[i] / @state.maxHp[i] * 100}
+                        now={@state.nowHp[i] / @state.maxHp[i] * 100} />
+                      </Col>
+                      <Col xs={4} class="hpText">
+                        {if @state.damageHp[i] > 0 then "#{@state.nowHp[i]} / #{@state.maxHp[i]} (-#{@state.damageHp[i]})" else "#{@state.nowHp[i]} / #{@state.maxHp[i]}"}
+                      </Col>
+                    </Grid>
                   </td>
                 </tr>
             }
@@ -552,9 +559,15 @@ module.exports =
                 <tr key={i}>
                   <td>Lv. {@state.shipLv[i]} - {tmpName}</td>
                   <td className="hp-progress">
-                    <ProgressBar bsStyle={getHpStyle @state.nowHp[i] / @state.maxHp[i] * 100}
-                      now={@state.nowHp[i] / @state.maxHp[i] * 100}
-                      label={if @state.damageHp[i] > 0 then "#{@state.nowHp[i]} / #{@state.maxHp[i]} (-#{@state.damageHp[i]})" else "#{@state.nowHp[i]} / #{@state.maxHp[i]}"} />
+                    <Grid>
+                      <Col xs={8} class="progress-bar">
+                        <ProgressBar bsStyle={getHpStyle @state.nowHp[i] / @state.maxHp[i] * 100}
+                          now={@state.nowHp[i] / @state.maxHp[i] * 100} />
+                      </Col>
+                      <Col xs={4} class="hpText">
+                          {if @state.damageHp[i] > 0 then "#{@state.nowHp[i]} / #{@state.maxHp[i]} (-#{@state.damageHp[i]})" else "#{@state.nowHp[i]} / #{@state.maxHp[i]}"}
+                      </Col>
+                    </Grid>
                   </td>
                 </tr>
             }
@@ -563,13 +576,13 @@ module.exports =
           <Alert>
           {
             if @state.getShip? && @state.enemyInfo?
-              "提督さん、#{@state.getShip.api_ship_type}「#{@state.getShip.api_ship_name}」が戦列に加わりました"
+              <p>"提督さん、#{@state.getShip.api_ship_type}「#{@state.getShip.api_ship_name}」が戦列に加わりました"</p>
             else
-              "提督さん、 敵陣形「#{formation[@state.enemyFormation]}」敵制空値「#{@state.enemyTyku}」「#{intercept[@state.enemyIntercept]} | #{@state.result}」"
+              <p>"敵陣形「#{formation[@state.enemyFormation]}」敵制空値「#{@state.enemyTyku}」「#{intercept[@state.enemyIntercept]} | #{@state.result}」"</p>
           }
           </Alert>
         </div>
-      else
+      else # vertical
         <div>
           <link rel="stylesheet" href={join(relative(ROOT, __dirname), 'assets', 'prophet.css')} />
           <Alert>
@@ -592,13 +605,13 @@ module.exports =
                     list.push <td>　</td>
                 else
                   list.push <td style={getCondStyle @state.shipCond[i]}>Lv. {@state.shipLv[i]} - {tmpName} Cond: {@state.shipCond[i]}</td>
-                  list.push <td className="hp-progress"><ProgressBar bsStyle={getHpStyle @state.nowHp[i] / @state.maxHp[i] * 100} now={@state.nowHp[i] / @state.maxHp[i] * 100} label={if @state.damageHp[i] > 0 then "#{@state.nowHp[i]} / #{@state.maxHp[i]} (-#{@state.damageHp[i]})" else "#{@state.nowHp[i]} / #{@state.maxHp[i]}"} /></td>
+                  list.push <Grid><Col xs={8} className="hp-progress"><ProgressBar bsStyle={getHpStyle @state.nowHp[i] / @state.maxHp[i] * 100} now={@state.nowHp[i] / @state.maxHp[i] * 100} /></Col><Col xs={4} class="hptext">{if @state.damageHp[i] > 0 then "#{@state.nowHp[i]} / #{@state.maxHp[i]} (-#{@state.damageHp[i]})" else "#{@state.nowHp[i]} / #{@state.maxHp[i]}"}</Col></Grid>
                 if @state.shipLv[i + 6] == -1
                   for j in [0..1]
                     list.push <td>　</td>
                 else
                   list.push <td>Lv. {@state.shipLv[i + 6]} - {@state.shipName[i + 6]}</td>
-                  list.push <td className="hp-progress"><ProgressBar bsStyle={getHpStyle @state.nowHp[i + 6] / @state.maxHp[i + 6] * 100} now={@state.nowHp[i + 6] / @state.maxHp[i + 6] * 100} label={if @state.damageHp[i + 6] > 0 then "#{@state.nowHp[i + 6]} / #{@state.maxHp[i + 6]} (-#{@state.damageHp[i + 6]})" else "#{@state.nowHp[i + 6]} / #{@state.maxHp[i + 6]}"} /></td>
+                  list.push <Grid><Col xs={8} className="hp-progress"><ProgressBar bsStyle={getHpStyle @state.nowHp[i + 6] / @state.maxHp[i + 6] * 100} now={@state.nowHp[i + 6] / @state.maxHp[i + 6] * 100} /></Col><Col xs={4} class="hptext">{if @state.damageHp[i + 6] > 0 then "#{@state.nowHp[i + 6]} / #{@state.maxHp[i + 6]} (-#{@state.damageHp[i + 6]})" else "#{@state.nowHp[i + 6]} / #{@state.maxHp[i + 6]}"}</Col></Grid>
                 continue if (@state.shipLv[i] == -1 && @state.shipLv[i + 6] == -1)
                 <tr key={i}>
                   {list}
@@ -609,9 +622,9 @@ module.exports =
           <Alert>
           {
             if @state.getShip? && @state.enemyInfo?
-              "提督さん、#{@state.getShip.api_ship_type}「#{@state.getShip.api_ship_name}」が戦列に加わりました"
+              <p>"提督さん、#{@state.getShip.api_ship_type}「#{@state.getShip.api_ship_name}」が戦列に加わりました"</p>
             else
-              "提督さん、 敵陣形「#{formation[@state.enemyFormation]}」敵制空値「#{@state.enemyTyku}」「#{intercept[@state.enemyIntercept]} | #{@state.result}」"
+              <p>"敵陣形「#{formation[@state.enemyFormation]}」敵制空値「#{@state.enemyTyku}」「#{intercept[@state.enemyIntercept]} | #{@state.result}」"</p>
           }
           </Alert>
         </div>
