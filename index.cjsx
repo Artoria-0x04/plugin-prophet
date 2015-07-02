@@ -264,6 +264,7 @@ module.exports =
       result: "不明"
       shipCond: [0, 0, 0, 0, 0, 0]
       deckId: 0
+      alertstyle: "default"
     handleResponse: (e) ->
       {method, path, body, postBody} = e.detail
       {afterHp, nowHp, maxHp, damageHp, shipName, shipLv, enemyInfo, getShip, enemyFormation, enemyTyku, enemyIntercept, enemyName, result, shipCond, deckId} = @state
@@ -528,7 +529,7 @@ module.exports =
                 continue unless @state.shipLv[i] != -1
                 continue unless i < 6
                 <tr key={i + 1}>
-                  <td style={getCondStyle @state.shipCond[i]}>Lv. {@state.shipLv[i]} - {tmpName} Cond: {@state.shipCond[i]}</td>
+                  <td className="shipName" style={getCondStyle @state.shipCond[i]}>Lv. {@state.shipLv[i]} - {tmpName} Cond: {@state.shipCond[i]}</td>
                   <td className="hp-progress">
                     <Grid>
                       <Col xs={7} className="hpBar">
@@ -557,7 +558,7 @@ module.exports =
                 continue unless @state.shipLv[i] != -1
                 continue unless i >= 6
                 <tr key={i}>
-                  <td>Lv. {@state.shipLv[i]} - {tmpName}</td>
+                  <td className="shipName">Lv. {@state.shipLv[i]} - {tmpName}</td>
                   <td className="hp-progress">
                     <Grid>
                       <Col xs={7} className="hpBar">
@@ -576,9 +577,9 @@ module.exports =
           <Alert>
           {
             if @state.getShip? && @state.enemyInfo?
-              <p>"提督さん、#{@state.getShip.api_ship_type}「#{@state.getShip.api_ship_name}」が戦列に加わりました"</p>
+              <p>提督さん、#{@state.getShip.api_ship_type}「#{@state.getShip.api_ship_name}」が戦列に加わりました</p>
             else
-              <p>"敵陣形「#{formation[@state.enemyFormation]}」敵制空値「#{@state.enemyTyku}」「#{intercept[@state.enemyIntercept]} | #{@state.result}」"</p>
+              <p>敵陣形「#{formation[@state.enemyFormation]}」敵制空値「#{@state.enemyTyku}」「#{intercept[@state.enemyIntercept]} | #{@state.result}」</p>
           }
           </Alert>
         </div>
@@ -604,13 +605,13 @@ module.exports =
                   for j in [0..1]
                     list.push <td>　</td>
                 else
-                  list.push <td style={getCondStyle @state.shipCond[i]}>Lv. {@state.shipLv[i]} - {tmpName} Cond: {@state.shipCond[i]}</td>
+                  list.push <td className="shipName" style={getCondStyle @state.shipCond[i]}>Lv. {@state.shipLv[i]} - {tmpName} Cond: {@state.shipCond[i]}</td>
                   list.push <Grid><Col xs={7} className="hp-progress"><ProgressBar bsStyle={getHpStyle @state.nowHp[i] / @state.maxHp[i] * 100} now={@state.nowHp[i] / @state.maxHp[i] * 100} /></Col><Col xs={5} class="hptext">{if @state.damageHp[i] > 0 then "#{@state.nowHp[i]} / #{@state.maxHp[i]} (-#{@state.damageHp[i]})" else "#{@state.nowHp[i]} / #{@state.maxHp[i]}"}</Col></Grid>
                 if @state.shipLv[i + 6] == -1
                   for j in [0..1]
                     list.push <td>　</td>
                 else
-                  list.push <td>Lv. {@state.shipLv[i + 6]} - {@state.shipName[i + 6]}</td>
+                  list.push <td className="shipName">Lv. {@state.shipLv[i + 6]} - {@state.shipName[i + 6]}</td>
                   list.push <Grid><Col xs={7} className="hp-progress"><ProgressBar bsStyle={getHpStyle @state.nowHp[i + 6] / @state.maxHp[i + 6] * 100} now={@state.nowHp[i + 6] / @state.maxHp[i + 6] * 100} /></Col><Col xs={5} class="hptext">{if @state.damageHp[i + 6] > 0 then "#{@state.nowHp[i + 6]} / #{@state.maxHp[i + 6]} (-#{@state.damageHp[i + 6]})" else "#{@state.nowHp[i + 6]} / #{@state.maxHp[i + 6]}"}</Col></Grid>
                 continue if (@state.shipLv[i] == -1 && @state.shipLv[i + 6] == -1)
                 <tr key={i}>
@@ -622,9 +623,9 @@ module.exports =
           <Alert>
           {
             if @state.getShip? && @state.enemyInfo?
-              <p>"提督さん、#{@state.getShip.api_ship_type}「#{@state.getShip.api_ship_name}」が戦列に加わりました"</p>
+              <p>提督さん、#{@state.getShip.api_ship_type}「#{@state.getShip.api_ship_name}」が戦列に加わりました</p>
             else
-              <p>"敵陣形「#{formation[@state.enemyFormation]}」敵制空値「#{@state.enemyTyku}」「#{intercept[@state.enemyIntercept]} | #{@state.result}」"</p>
+              <p>敵陣形「#{formation[@state.enemyFormation]}」敵制空値「#{@state.enemyTyku}」「#{intercept[@state.enemyIntercept]} | #{@state.result}」</p>
           }
           </Alert>
         </div>

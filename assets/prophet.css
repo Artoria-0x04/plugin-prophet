@@ -1,6 +1,9 @@
 #prophet .table {
   margin-bottom: 12px;
 }
+#prophet table td .shipName{
+  font-size: 15px;
+}
 #prophet table td {
   overflow: hidden;
   text-overflow: ellipsis;
