@@ -513,7 +513,7 @@ module.exports =
     componentWillUnmount: ->
       window.removeEventListener 'game.response', @handleResponse
     render: ->
-      if layout == 'horizonal'
+      # if layout == 'horizonal'
         <div>
           <link rel="stylesheet" href={join(relative(ROOT, __dirname), 'assets', 'prophet.css')} />
           <Alert>
@@ -570,52 +570,6 @@ module.exports =
                       </Col>
                     </Grid>
                   </td>
-                </tr>
-            }
-            </tbody>
-          </Table>
-          <Alert>
-          {
-            if @state.getShip? && @state.enemyInfo?
-              <p>提督さん、#{@state.getShip.api_ship_type}「#{@state.getShip.api_ship_name}」が戦列に加わりました</p>
-            else
-              <p>敵陣形「#{formation[@state.enemyFormation]}」敵制空値「#{@state.enemyTyku}」「#{intercept[@state.enemyIntercept]} | #{@state.result}」</p>
-          }
-          </Alert>
-        </div>
-      else # vertical
-        <div>
-          <link rel="stylesheet" href={join(relative(ROOT, __dirname), 'assets', 'prophet.css')} />
-          <Alert>
-            <Grid>
-              <Col xs={3}>出撃艦隊</Col>
-              <Col xs={3}>耐久</Col>
-              <Col xs={3}>{@state.enemyName}</Col>
-              <Col xs={3}>耐久</Col>
-            </Grid>
-          </Alert>
-          <Table>
-            <tbody>
-            {
-              for tmpName, i in @state.shipName
-                continue if (@state.shipLv[i] == -1 && @state.shipLv[i + 6] == -1)
-                continue if i >= 6
-                list = []
-                if @state.shipLv[i] == -1
-                  for j in [0..1]
-                    list.push <td>　</td>
-                else
-                  list.push <td className="shipName" style={getCondStyle @state.shipCond[i]}>Lv. {@state.shipLv[i]} - {tmpName} Cond: {@state.shipCond[i]}</td>
-                  list.push <Grid><Col xs={7} className="hp-progress"><ProgressBar bsStyle={getHpStyle @state.nowHp[i] / @state.maxHp[i] * 100} now={@state.nowHp[i] / @state.maxHp[i] * 100} /></Col><Col xs={5} class="hptext">{if @state.damageHp[i] > 0 then "#{@state.nowHp[i]} / #{@state.maxHp[i]} (-#{@state.damageHp[i]})" else "#{@state.nowHp[i]} / #{@state.maxHp[i]}"}</Col></Grid>
-                if @state.shipLv[i + 6] == -1
-                  for j in [0..1]
-                    list.push <td>　</td>
-                else
-                  list.push <td className="shipName">Lv. {@state.shipLv[i + 6]} - {@state.shipName[i + 6]}</td>
-                  list.push <Grid><Col xs={7} className="hp-progress"><ProgressBar bsStyle={getHpStyle @state.nowHp[i + 6] / @state.maxHp[i + 6] * 100} now={@state.nowHp[i + 6] / @state.maxHp[i + 6] * 100} /></Col><Col xs={5} class="hptext">{if @state.damageHp[i + 6] > 0 then "#{@state.nowHp[i + 6]} / #{@state.maxHp[i + 6]} (-#{@state.damageHp[i + 6]})" else "#{@state.nowHp[i + 6]} / #{@state.maxHp[i + 6]}"}</Col></Grid>
-                continue if (@state.shipLv[i] == -1 && @state.shipLv[i + 6] == -1)
-                <tr key={i}>
-                  {list}
                 </tr>
             }
             </tbody>
