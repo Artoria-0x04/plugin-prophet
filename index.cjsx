@@ -18,7 +18,17 @@ getCondStyle = (cond) ->
   else if cond < 30
     color: '#F37B1D'
   else
-    null
+    color: '#FFF'
+
+getCondColor = (cond) ->
+  if cond > 49
+    '#ffd600'
+  else if cond < 20
+    '#DD514C'
+  else if cond < 30
+    '#F37B1D'
+  else
+    '#FFF'
 
 getHpStyle = (percent) ->
   if percent <= 25
@@ -529,14 +539,16 @@ module.exports =
                 continue unless @state.shipLv[i] != -1
                 continue unless i < 6
                 <tr key={i + 1}>
-                  <td className="shipName" style={getCondStyle @state.shipCond[i]}>Lv. {@state.shipLv[i]} - {tmpName} Cond: {@state.shipCond[i]}</td>
+                  <td className="shipName" style={getCondStyle @state.shipCond[i]}>
+                    <span className="condIndicator" style={display:"inline-block", height:"100%", width:3, verticalAlign:"middle", marginRight:4,  backgroundColor:getCondColor @state.shipCond[i]}></span>
+                    Lv. {@state.shipLv[i]} - {tmpName} Cond: {@state.shipCond[i]}</td>
                   <td className="hp-progress">
                     <Grid>
-                      <Col xs={7} className="hpBar">
+                      <Col xs={6} className="hpBar">
                         <ProgressBar bsStyle={getHpStyle @state.nowHp[i] / @state.maxHp[i] * 100}
                         now={@state.nowHp[i] / @state.maxHp[i] * 100} />
                       </Col>
-                      <Col xs={5} className="hpText">
+                      <Col xs={6} className="hpText">
                         {if @state.damageHp[i] > 0 then "#{@state.nowHp[i]} / #{@state.maxHp[i]} (-#{@state.damageHp[i]})" else "#{@state.nowHp[i]} / #{@state.maxHp[i]}"}
                       </Col>
                     </Grid>
