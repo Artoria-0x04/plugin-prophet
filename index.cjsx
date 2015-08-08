@@ -854,8 +854,8 @@ module.exports =
                       Lv. {@state.shipLv[i]} - {tmpName}
                       {
                         if @state.prophetCondShow && @state.combinedFlag == 0
-                          <span  style={getCondStyle @state.shipCond[i]}>
-                            <FontAwesome key={1} name='star' />{@state.shipCond[i]}
+                          <span style={getCondStyle @state.shipCond[i]}>
+                            ★{@state.shipCond[i]}
                           </span>
                       }
                     </td>
@@ -878,8 +878,8 @@ module.exports =
                       Lv. {@state.shipLv[i]} - {tmpName}
                       {
                         if @state.prophetCondShow && @state.combinedFlag == 0
-                          <span  style={getCondStyle @state.shipCond[i]}>
-                            <FontAwesome key={1} name='star' />{@state.shipCond[i]}
+                          <span style={getCondStyle @state.shipCond[i]}>
+                            ★{@state.shipCond[i]}
                           </span>
                       }
                     </td>
@@ -993,10 +993,10 @@ module.exports =
                     {
                       if @state.prophetCondShow
                         <span  style={getCondStyle @state.shipCond[i]}>
-                          <FontAwesome key={1} name='star' />{@state.shipCond[i]}
+                          ★{@state.shipCond[i]}
                         </span>
                     }
-                    <span  style={getCondStyle @state.shipCond[i]}><FontAwesome key={1} name='star' />{@state.shipCond[i]}</span>
+                    <span style={getCondStyle @state.shipCond[i]}>★{@state.shipCond[i]}</span>
                   </td>
                   list.push <td className="hp-progress">
                     <Grid>
@@ -1086,3 +1086,4 @@ module.exports =
             </Button>
           </Col>
         </Grid>
+      </div>
