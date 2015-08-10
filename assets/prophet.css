@@ -1,14 +1,15 @@
 #prophet .table {
-  margin: 6px 3px;
+  margin: 6px 0px;
 }
 #prophet table td .shipName{
-  font-size: 15px;
+  /*font-size: 15px;*/
 }
 #prophet table td {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 13px;
+  margin: 0 6px;
+  /*font-size: 13px;*/
 }
 #prophet table tr td {
   /*padding-bottom: 0px;*/
@@ -38,9 +39,13 @@
   width: 100%;
   display: block;
 }
-#prophet .hptext {
-  font-size: 12px;
+#prophet .hpText {
+  font-size: 80%;
   line-height: 1;
+  margin-bottom: -5px;
+}
+#prophet .row{
+  margin: 0;
 }
 #prophet .alert {
   margin-top: 0px;
