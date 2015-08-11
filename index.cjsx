@@ -864,7 +864,6 @@ module.exports =
                 if @state.combinedFlag == 0
                   <tr key={i + 1}>
                     <td>
-                      <span className="condIndicator" style={display:"inline-block", height:"100%", width:3, verticalAlign:"middle", marginRight:4,  backgroundColor:getCondColor @state.shipCond[i]}></span>
                       Lv. {@state.shipLv[i]} - {tmpName}
                       {
                         if @state.prophetCondShow && @state.combinedFlag == 0
@@ -999,7 +998,6 @@ module.exports =
                     list.push <td>　</td>
                 else
                   list.push <td className="shipName" style={getCondStyle @state.shipCond[i]}>
-                    <span className="condIndicator" style={display:"inline-block", height:"100%", width:3, verticalAlign:"middle", marginRight:4,  backgroundColor:getCondColor @state.shipCond[i]}></span>
                     Lv. {@state.shipLv[i]} - {tmpName}
                     {
                       if @state.prophetCondShow
