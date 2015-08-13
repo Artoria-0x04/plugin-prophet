@@ -14,7 +14,7 @@
 #prophet table tr td {
   /*padding-bottom: 0px;*/
   border: none;
-  vertical-align: bottom;
+  vertical-align: middle;
 }
 #prophet .list-group {
   margin:0px;

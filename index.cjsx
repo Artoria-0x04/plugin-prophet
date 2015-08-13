@@ -864,7 +864,7 @@ module.exports =
                 if @state.combinedFlag == 0
                   <tr key={i + 1}>
                     <td>
-                      Lv. {@state.shipLv[i]} - {tmpName}
+                      Lv.{@state.shipLv[i]} {tmpName}
                       {
                         if @state.prophetCondShow && @state.combinedFlag == 0
                           <span style={getCondStyle @state.shipCond[i]}>
@@ -874,20 +874,20 @@ module.exports =
                     </td>
                     <td className="hp-progress">
                       <Grid>
-                        <Row xs={7} className="hpText">
-                          {if @state.damageHp[i] > 0 then "#{@state.nowHp[i]} / #{@state.maxHp[i]} (-#{@state.damageHp[i]})" else "#{@state.nowHp[i]} / #{@state.maxHp[i]}"}
-                        </Row>
-                        <Row xs={5} className="hpBar">
+                        <Col xs={6} className="hpBar">
                           <ProgressBar bsStyle={getHpStyle @state.nowHp[i] / @state.maxHp[i] * 100}
                           now={@state.nowHp[i] / @state.maxHp[i] * 100} />
-                        </Row>
+                        </Col>
+                        <Col xs={6} className="hpText">
+                          {if @state.damageHp[i] > 0 then "#{@state.nowHp[i]} / #{@state.maxHp[i]} (-#{@state.damageHp[i]})" else "#{@state.nowHp[i]} / #{@state.maxHp[i]}"}
+                        </Col>
                       </Grid>
                     </td>
                   </tr>
                 else
                   <tr key={i + 1}>
-                    <td style={width:"20%"}>
-                      {tmpName}
+                    <td style={width:"30%"}>
+                      Lv.{@state.shipLv[i]} {tmpName}
                       {
                         if @state.prophetCondShow && @state.combinedFlag == 0
                           <span style={getCondStyle @state.shipCond[i]}>
@@ -906,8 +906,8 @@ module.exports =
                         </Row>
                       </Grid>
                     </td>
-                    <td style={width:"20%"}>
-                      {@state.combinedName[i]}
+                    <td style={width:"30%"}>
+                      Lv.{@state.combinedLv[i]} {@state.combinedName[i]}
                     </td>
                     <td className="hp-progress">
                       <Grid>
@@ -935,20 +935,36 @@ module.exports =
               for tmpName, i in @state.shipName
                 continue unless @state.shipLv[i] != -1
                 continue unless i >= 6
-                <tr key={i}>
-                  <td className="shipName">Lv. {@state.shipLv[i]} - {tmpName}</td>
-                  <td className="hp-progress">
-                    <Grid>
-                      <Row xs={7} className="hpText">
-                          {if @state.damageHp[i] > 0 then "#{@state.nowHp[i]} / #{@state.maxHp[i]} (-#{@state.damageHp[i]})" else "#{@state.nowHp[i]} / #{@state.maxHp[i]}"}
-                      </Row>
-                      <Row xs={5} className="hpBar">
-                        <ProgressBar bsStyle={getHpStyle @state.nowHp[i] / @state.maxHp[i] * 100}
-                          now={@state.nowHp[i] / @state.maxHp[i] * 100} />
-                      </Row>
-                    </Grid>
-                  </td>
-                </tr>
+                if @state.combinedFlag == 0
+                  <tr key={i}>
+                    <td className="shipName">Lv. {@state.shipLv[i]} - {tmpName}</td>
+                    <td className="hp-progress">
+                      <Grid>
+                        <Col xs={6} className="hpBar">
+                          <ProgressBar bsStyle={getHpStyle @state.nowHp[i] / @state.maxHp[i] * 100}
+                            now={@state.nowHp[i] / @state.maxHp[i] * 100} />
+                        </Col>
+                        <Col xs={6} className="hpText">
+                            {if @state.damageHp[i] > 0 then "#{@state.nowHp[i]} / #{@state.maxHp[i]} (-#{@state.damageHp[i]})" else "#{@state.nowHp[i]} / #{@state.maxHp[i]}"}
+                        </Col>
+                      </Grid>
+                    </td>
+                  </tr>
+                else
+                  <tr key={i}>
+                    <td className="shipName">Lv. {@state.shipLv[i]} - {tmpName}</td>
+                    <td className="hp-progress">
+                      <Grid>
+                        <Row xs={6} className="hpText">
+                            {if @state.damageHp[i] > 0 then "#{@state.nowHp[i]} / #{@state.maxHp[i]} (-#{@state.damageHp[i]})" else "#{@state.nowHp[i]} / #{@state.maxHp[i]}"}
+                        </Row>
+                        <Row xs={6} className="hpBar">
+                          <ProgressBar bsStyle={getHpStyle @state.nowHp[i] / @state.maxHp[i] * 100}
+                            now={@state.nowHp[i] / @state.maxHp[i] * 100} />
+                        </Row>
+                      </Grid>
+                    </td>
+                  </tr>
             }
             </tbody>
           </Table>
@@ -998,7 +1014,7 @@ module.exports =
                     list.push <td>　</td>
                 else
                   list.push <td className="shipName" style={getCondStyle @state.shipCond[i]}>
-                    Lv. {@state.shipLv[i]} - {tmpName}
+                    Lv.{@state.shipLv[i]} {tmpName}
                     {
                       if @state.prophetCondShow
                         <span  style={getCondStyle @state.shipCond[i]}>
@@ -1009,18 +1025,18 @@ module.exports =
                   </td>
                   list.push <td className="hp-progress">
                     <Grid>
-                      <Col xs={5} className="hpBar">
+                      <Col xs={6} className="hpBar">
                         <ProgressBar bsStyle={getHpStyle @state.nowHp[i] / @state.maxHp[i] * 100}
                         now={@state.nowHp[i] / @state.maxHp[i] * 100} />
                       </Col>
-                      <Col xs={7} className="hpText">
+                      <Col xs={6} className="hpText">
                         {if @state.damageHp[i] > 0 then "#{@state.nowHp[i]} / #{@state.maxHp[i]} (-#{@state.damageHp[i]})" else "#{@state.nowHp[i]} / #{@state.maxHp[i]}"}
                       </Col>
                     </Grid>
                   </td>
                   if @state.combinedFlag != 0
                     list.push <td>
-                      Lv. {@state.combinedLv[i]} - {@state.combinedName[i]}
+                      Lv.{@state.combinedLv[i]} {@state.combinedName[i]}
                     </td>
                     list.push <td className="hp-progress">
                       <Grid>
@@ -1036,7 +1052,7 @@ module.exports =
                   for j in [0..1]
                     list.push <td>　</td>
                 else
-                  list.push <td>Lv. {@state.shipLv[i + 6]} - {@state.shipName[i + 6]}</td>
+                  list.push <td>Lv.{@state.shipLv[i + 6]} {@state.shipName[i + 6]}</td>
                   list.push <td className="hp-progress">
                     <Grid>
                       <Col xs={5} className="hpBar">
