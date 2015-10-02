@@ -17,7 +17,8 @@ module.exports = React.createClass
       <td>　</td>
     else
       <td className="hp-progress" style={opacity: 1 - 0.6 * @props.isBack}>
+        <span>{if @props.dmg > 0 then "#{@props.now} / #{@props.max} (-#{@props.dmg})" else "#{@props.now} / #{@props.max}"}</span>
         <ProgressBar bsStyle={getHpStyle @props.now / @props.max * 100}
           now={@props.now / @props.max * 100}
-          label={if @props.dmg > 0 then "#{@props.now} / #{@props.max} (-#{@props.dmg})" else "#{@props.now} / #{@props.max}"} />
+          />
       </td>
