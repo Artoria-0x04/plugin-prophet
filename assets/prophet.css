@@ -25,24 +25,29 @@
   border: none;
   margin-bottom: 0px;
 }
+#prophet .hp-progress{
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+}
 #prophet .hp-progress .hpBar{
   padding-top: 3px;
 }
 #prophet .hp-progress .progress {
   position: relative;
-  margin-bottom: 1px;
+  margin: 0px 15px;
   background-color: inherit;
   height: 6px;
+  flex: auto;
 }
-#prophet .hp-progress .progress-bar span span {
+#prophet .hp-progress .progress-bar span {
   position: absolute;
   width: 100%;
   display: block;
 }
-#prophet .hpText {
-  font-size: 80%;
-  line-height: 1;
-  margin-bottom: -5px;
+#prophet .hp-text {
+  flex: none;
+  text-align: right;
 }
 #prophet .row{
   margin: 0;
@@ -65,6 +70,7 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+  flex: 1;
 }
 #prophet .ship-name {
   flex: 1;
@@ -73,6 +79,9 @@
 }
 #prophet .attack-damage {
   flex: none;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
 }
 #prophet .prophet-info-name {
   text-shadow: none;
@@ -81,6 +90,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  flex: 1;
+  display: flex;
+}
+#prophet .navigation-bar-hp {
+  flex: 1;
 }
 .navigation-bar-airplane > span {
   line-height: 30px;
@@ -94,6 +108,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+#prophet .ship-list {
+  padding: 6px 15px;
+}
+#prophet .ship-item {
+  height: 30px;
+  line-height: 30px;
+  width: 100%;
 }
 #prophet .fa {
   line-height: inherit;

@@ -14,11 +14,11 @@ getHpStyle = (percent) ->
 module.exports = React.createClass
   render: ->
     if @props.lv == -1
-      <td>　</td>
+      <div>　</div>
     else
-      <td className="hp-progress" style={opacity: 1 - 0.6 * @props.isBack}>
-        <span>{if @props.dmg > 0 then "#{@props.now} / #{@props.max} (-#{@props.dmg})" else "#{@props.now} / #{@props.max}"}</span>
+      <div className="hp-progress flex-row" style={opacity: 1 - 0.6 * @props.isBack}>
         <ProgressBar bsStyle={getHpStyle @props.now / @props.max * 100}
           now={@props.now / @props.max * 100}
           />
-      </td>
+        <span className="hp-text">{if @props.dmg > 0 then "#{@props.now} / #{@props.max} (-#{@props.dmg})" else "#{@props.now} / #{@props.max}"}</span>
+      </div>
