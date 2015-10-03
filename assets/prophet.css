@@ -10,6 +10,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  display: inline;
 }
 #prophet .alert {
   margin: 0px 6px;
