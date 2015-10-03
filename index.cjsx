@@ -647,6 +647,7 @@ module.exports =
     render: ->
       <div onDoubleClick={@handleDisplayModeSwitch}>
         <link rel="stylesheet" href={join(relative(ROOT, __dirname), 'assets', 'prophet.css')} />
+        <link rel="stylesheet" href={join(relative(ROOT, __dirname), 'assets', 'flex.css')} />
         <ProphetPanel
           sortieHp={@state.sortieHp}
           enemyHp={@state.enemyHp}

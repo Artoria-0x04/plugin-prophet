@@ -96,14 +96,6 @@
 #prophet .navigation-bar-hp {
   flex: 1;
 }
-.navigation-bar-airplane > span {
-  line-height: 30px;
-  height: 30px;
-  display: inline-block;
-}
-.navigation-bar-airplane > span span{
-  display: inline-block;
-}
 #prophet span {
   overflow: hidden;
   text-overflow: ellipsis;
