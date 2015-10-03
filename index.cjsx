@@ -457,7 +457,7 @@ module.exports =
           mapCell = body.api_mapinfo_no
           nowSpot = 0
           nextSpot = body.api_no
-          nextSpotKind = getCellInfo body.api_event_id, body.event_kind, body.api_bosscell_no, body.api_no
+          nextSpotKind = getCellInfo body.api_event_id, body.api_event_kind, body.api_bosscell_no, body.api_no
 
         # Enter next point in battle
         when '/kcsapi/api_req_map/next'
@@ -472,7 +472,7 @@ module.exports =
           # Comapss
           nowSpot = nextSpot
           nextSpot = body.api_no
-          nextSpotKind = getCellInfo body.api_event_id, body.event_kind, body.api_bosscell_no, body.api_no
+          nextSpotKind = getCellInfo body.api_event_id, body.api_event_kind, body.api_bosscell_no, body.api_no
 
         # Some ship while go back
         when '/kcsapi/api_req_combined_battle/goback_port'
@@ -660,7 +660,7 @@ module.exports =
           sortiePlane={@state.sortiePlane}
           enemyPlane={@state.enemyPlane}
           cols={if @state.combinedFlag == 0 then 0 else 1}
-          lay={if layout == 'horizonal' || window.doubleTabbed then 0 else 1}
+          lay={if layout == 'horizontal' || window.doubleTabbed then 0 else 1}
           goBack={@state.goBack}
           compactMode={@state.compactMode}
           mvpPos = {@state.mvpPos}/>
