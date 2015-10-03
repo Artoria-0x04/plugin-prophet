@@ -1,29 +1,52 @@
-#prophet .table {
-  margin: 6px 0px;
+#prophet .ship-list {
+  padding: 6px 15px;
 }
-#prophet table td .shipName{
-  /*font-size: 15px;*/
+#prophet .ship-item {
+  height: 30px;
+  line-height: 30px;
+  width: 100%;
 }
-#prophet table td {
+#prophet span {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin: 0 6px;
-  /*font-size: 13px;*/
 }
-#prophet table tr td {
-  /*padding-bottom: 0px;*/
-  border: none;
-  vertical-align: middle;
+#prophet .alert {
+  margin: 0px 6px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 6px;
 }
-#prophet .list-group {
-  margin:0px;
+#prophet .alert > span{
+  height: 30px;
+  line-height: 30px;
 }
-#prophet .list-group .list-group-item{
-  padding:0px;
-  background-color: transparent;
-  border: none;
-  margin-bottom: 0px;
+#prophet .fa {
+  line-height: inherit;
+}
+
+#prophet .prophet-info-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  flex: 1;
+}
+#prophet .ship-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#prophet .attack-damage {
+  flex: none;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+#prophet .prophet-info-name {
+  text-shadow: none;
 }
 #prophet .hp-progress{
   flex: 1;
@@ -49,42 +72,7 @@
   flex: none;
   text-align: right;
 }
-#prophet .row{
-  margin: 0;
-}
-#prophet .alert {
-  margin: 0px 6px;
-  height: 30px;
-  line-height: 30px;
-  padding: 0 6px;
-}
-#prophet .alert > span{
-  height: 30px;
-  line-height: 30px;
-}
-#prophet .prophet-info-content {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  flex: 1;
-}
-#prophet .ship-name {
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-#prophet .attack-damage {
-  flex: none;
-  display: flex;
-  align-items: center;
-  margin-left: 10px;
-}
-#prophet .prophet-info-name {
-  text-shadow: none;
-}
+
 #prophet .navigation-bar-airplane {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -97,20 +85,4 @@
 }
 #prophet .navigation-bar-hp {
   flex: 1;
-}
-#prophet span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-#prophet .ship-list {
-  padding: 6px 15px;
-}
-#prophet .ship-item {
-  height: 30px;
-  line-height: 30px;
-  width: 100%;
-}
-#prophet .fa {
-  line-height: inherit;
 }
