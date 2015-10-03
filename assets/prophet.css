@@ -61,7 +61,6 @@
 #prophet .alert > span{
   height: 30px;
   line-height: 30px;
-  display: inline-block;
 }
 #prophet .prophet-info-content {
   overflow: hidden;
@@ -92,6 +91,9 @@
   white-space: nowrap;
   flex: 1;
   display: flex;
+}
+.navigation-bar-airplane > span span {
+  display: inline-block;
 }
 #prophet .navigation-bar-hp {
   flex: 1;
