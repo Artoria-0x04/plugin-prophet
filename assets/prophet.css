@@ -10,13 +10,13 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  display: inline;
 }
 #prophet .alert {
   margin: 0px 6px;
   height: 30px;
   line-height: 30px;
   padding: 0 6px;
+  background: #464545;
 }
 #prophet .alert > span{
   height: 30px;
@@ -78,7 +78,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  flex: 1;
+  flex: none;
   display: flex;
 }
 .navigation-bar-airplane > span span {
