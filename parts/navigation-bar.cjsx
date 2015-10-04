@@ -21,11 +21,13 @@ module.exports = React.createClass
         </Alert>
       else if @props.enemyInfo.lv[0] != -1
         <Alert className="flex-row">
-          <span className="ship-name">{@props.enemyName}</span>
+          <span className="ship-name">
+            {@props.enemyName}
           {
             if @props.enemyPlane
               <span className="navigation-bar-airplane flex-row">「<FontAwesome name='plane' />{@props.enemyPlane}」</span>
           }
+          </span>
           <span className="navigation-bar-hp">{@props.HP}</span>
         </Alert>
       else
