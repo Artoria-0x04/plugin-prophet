@@ -4,15 +4,15 @@ module.exports = React.createClass
     <div>
       {
         if @props.getShip?
-          <Alert>
+          <Alert className="flex-row">
             {"#{@props.getShip.api_ship_type} 「#{@props.getShip.api_ship_name}」 #{@props.joinFleet}"}
           </Alert>
         else if @props.formationNum != 0
-          <Alert>
+          <Alert className="flex-row">
             {"#{@props.result} | #{@props.formation} | #{@props.intercept} | #{@props.seiku}"}
           </Alert>
         else if @props.nextSpotInfo
-          <Alert>
+          <Alert className="flex-row">
             {"#{@props.compassPoint}: "}
             {
               if @props.compassAngle
