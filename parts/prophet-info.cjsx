@@ -7,7 +7,7 @@ getCondStyle = (cond, show) ->
 module.exports = React.createClass
   render: ->
     if @props.lv == -1
-      <div>　</div>
+      <div className="prophet-info-content"></div>
     else
       nameTxt = "#{@props.name} "
       showCond = @props.condShow

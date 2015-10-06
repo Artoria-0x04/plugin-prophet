@@ -12,10 +12,10 @@
   white-space: nowrap;
 }
 #prophet .alert {
-  margin: 0px 6px;
+  margin: 0px;
   height: 30px;
   line-height: 30px;
-  padding: 0 6px;
+  padding: 0 15px;
   background: #464545;
 }
 #prophet .alert > span{
@@ -34,6 +34,7 @@
   flex-flow: row nowrap;
   justify-content: space-between;
   flex: 1;
+  margin-right: 15px;
 }
 #prophet .ship-name {
   flex: 1;
@@ -53,13 +54,14 @@
   flex: 1;
   align-items: center;
   justify-content: space-between;
+  margin-right: 15px;
 }
 #prophet .hp-progress .hpBar{
   padding-top: 3px;
 }
 #prophet .hp-progress .progress {
   position: relative;
-  margin: 0px 15px;
+  margin: 0px 15px 0 0;
   background-color: inherit;
   height: 6px;
   flex: auto;

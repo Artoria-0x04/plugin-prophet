@@ -14,7 +14,7 @@ getHpStyle = (percent) ->
 module.exports = React.createClass
   render: ->
     if @props.lv == -1
-      <div>　</div>
+      <div className="hp-progress flex-row"></div>
     else
       <div className="hp-progress flex-row" style={opacity: 1 - 0.6 * @props.isBack}>
         <ProgressBar bsStyle={getHpStyle @props.now / @props.max * 100}
