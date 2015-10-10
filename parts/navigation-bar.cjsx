@@ -1,4 +1,4 @@
-{Table, ProgressBar, Grid, Input, Col, Alert, Button} = ReactBootstrap
+{Table, ProgressBar, Grid, Input, Col, Button, Panel} = ReactBootstrap
 module.exports = React.createClass
   render: ->
     if @props.isFirst == 1 || (@props.isFirst == 0 && @props.lay == 0)
@@ -16,11 +16,11 @@ module.exports = React.createClass
           else
             list.push <span style={flex: tmp} className="navigation-bar-airplane flex-row">{@props.sortieFleet}「<FontAwesome name='plane' />{@props.sortiePlane}」</span>
           list.push <span style={flex: tmp}>{@props.HP}</span>
-        <Alert className="flex-row">
+        <Panel>
           {list}
-        </Alert>
+        </Panel>
       else if @props.enemyInfo.lv[0] != -1
-        <Alert className="flex-row">
+        <Panel>
           <span className="ship-name flex-row">
             {@props.enemyName}
           {
@@ -29,7 +29,7 @@ module.exports = React.createClass
           }
           </span>
           <span className="navigation-bar-hp">{@props.HP}</span>
-        </Alert>
+        </Panel>
       else
         <div></div>
     else

@@ -6,26 +6,21 @@
   line-height: 30px;
   width: 100%;
 }
+#prophet .panel {
+  margin: 0;
+}
+#prophet .panel-body {
+  padding: 6px 15px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
 #prophet span {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-#prophet .alert {
-  margin: 0px;
-  height: 30px;
-  line-height: 30px;
-  padding: 0 15px;
-  background: #464545;
-}
-#prophet .alert > span{
-  height: 30px;
-  line-height: 30px;
-}
-#prophet .fa {
-  line-height: inherit;
-}
-
 #prophet .prophet-info-content {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -74,17 +69,6 @@
 #prophet .hp-text {
   flex: none;
   text-align: right;
-}
-
-#prophet .navigation-bar-airplane {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  flex: none;
-  display: flex;
-}
-.navigation-bar-airplane > span span {
-  display: inline-block;
 }
 #prophet .navigation-bar-hp {
   flex: 1;

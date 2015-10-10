@@ -1,28 +1,28 @@
-{Alert} = ReactBootstrap
+{Panel} = ReactBootstrap
 module.exports = React.createClass
   render: ->
     <div>
       {
         if @props.getShip?
-          <Alert className="flex-row">
+          <Panel>
             {"#{@props.getShip.api_ship_type} 「#{@props.getShip.api_ship_name}」 #{@props.joinFleet}"}
-          </Alert>
+          </Panel>
         else if @props.formationNum != 0
-          <Alert className="flex-row">
+          <Panel>
             {"#{@props.result} | #{@props.formation} | #{@props.intercept} | #{@props.seiku}"}
-          </Alert>
+          </Panel>
         else if @props.nextSpotInfo
-          <Alert className="flex-row">
+          <Panel>
             {"#{@props.compassPoint}: "}
             {
               if @props.compassAngle
                 # FontAwesome `location-arrow` points to north by east 45 degrees.
                 <FontAwesome name='location-arrow' fixedWidth={true}
-                             style={transform: "rotate(#{@props.compassAngle - 45}deg)", width: "2rem"} />
+                             style={transform: "rotate(#{@props.compassAngle - 45}deg)", width: "2rem", height: "14px"} />
               else
                 "?"
             }
             {" | #{@props.nextSpot}: #{@props.nextSpotInfo}"}
-          </Alert>
+          </Panel>
       }
     </div>
