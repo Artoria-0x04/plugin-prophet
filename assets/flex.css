@@ -4,14 +4,12 @@
     display: flex;
 
     flex-flow: row nowrap;
-    align-items: center;
 }
 .flex-column
 {
     display: flex;
 
     flex-flow: column nowrap;
-    align-items: flex-start;
 }
 .flex-wrap
 {

@@ -35,6 +35,15 @@
   flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
+  align-items: center;
+}
+#prophet .navigation-bar-airplane {
+  align-items: center;
+}
+#prophet .damage {
+  flex: 1;
+  margin-right: 15px;
+  text-align: right;
 }
 #prophet .attack-damage {
   flex: none;
