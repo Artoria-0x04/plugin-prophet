@@ -11,6 +11,7 @@
 }
 #prophet .panel-body {
   padding: 6px 15px;
+  width: 100%;
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;

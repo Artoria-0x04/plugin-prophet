@@ -20,11 +20,9 @@ module.exports = React.createClass
         lvTxt += nameTxt
 
       <div style={opacity: 1 - 0.6 * @props.isBack} className="prophet-info-content">
-        <OverlayTrigger trigger='click' rootClose placement='bottom' overlay={<Popover>{popoverTxt}</Popover>} >
-          <span className={getCondStyle(@props.cond, showCond) + " ship-name"}>
-            {lvTxt}
-          </span>
-        </OverlayTrigger>
+        <span className={getCondStyle(@props.cond, showCond) + " ship-name"}>
+        {lvTxt}
+        </span>
         {
           if @props.mvp == true
             <span className={getCondStyle(100, 1) + " attack-damage"}><FontAwesome name='sword'/> {@props.atk}</span>

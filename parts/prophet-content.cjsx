@@ -1,4 +1,4 @@
-{Table, ProgressBar, Grid, Input, Col, Alert, Button} = ReactBootstrap
+{ProgressBar, Input, Alert, Button} = ReactBootstrap
 ProphetInfo = require './prophet-info'
 ProphetHp = require './prophet-hp'
 module.exports = React.createClass
@@ -18,10 +18,12 @@ module.exports = React.createClass
                   continue
                 if @props.cols == 2 && @props.sortieInfo[j] == -1 && @props.enemyInfo.lv[j] == -1 && @props.combinedInfo[j] == -1
                   continue
+              k = 0
               list = []
               for i in [0..(@props.cols)]
                 if (i == @props.cols) && (@props.lay == 1)
                   list.push <ProphetInfo
+                    key={++k}
                     lv={@props.enemyInfo.lv[j]}
                     name={@props.enemyInfo.name[j]}
                     condShow={0}
@@ -30,6 +32,7 @@ module.exports = React.createClass
                     atk={@props.enemyHp.atk[j]}
                     mvp={if @props.mvpPos[2] == j then true else false}/>
                   list.push <ProphetHp
+                    key={++k}
                     lv={@props.enemyInfo.lv[j]}
                     now={@props.enemyHp.now[j]}
                     max={@props.enemyHp.max[j]}
@@ -45,6 +48,7 @@ module.exports = React.createClass
                     tmpName = -1
                     tmpCond = -1
                   list.push <ProphetInfo
+                    key={++k}
                     lv={tmpLv}
                     name={tmpName}
                     cond={tmpCond}
@@ -54,6 +58,7 @@ module.exports = React.createClass
                     atk={@props.combinedHp.atk[j]}
                     mvp={if @props.mvpPos[1] == j then true else false}/>
                   list.push <ProphetHp
+                    key={++k}
                     lv={tmpLv}
                     now={@props.combinedHp.now[j]}
                     max={@props.combinedHp.max[j]}
@@ -69,6 +74,7 @@ module.exports = React.createClass
                     tmpName = -1
                     tmpCond = -1
                   list.push <ProphetInfo
+                    key={++k}
                     lv={tmpLv}
                     name={tmpName}
                     cond={tmpCond}
@@ -78,6 +84,7 @@ module.exports = React.createClass
                     atk={@props.sortieHp.atk[j]}
                     mvp={if @props.mvpPos[0] == j then true else false}/>
                   list.push <ProphetHp
+                    key={++k}
                     lv={tmpLv}
                     now={@props.sortieHp.now[j]}
                     max={@props.sortieHp.max[j]}
@@ -97,6 +104,7 @@ module.exports = React.createClass
               list = []
               for i in [0..0]
                 list.push <ProphetInfo
+                  key={j*3}
                   lv={@props.enemyInfo.lv[j]}
                   name={@props.enemyInfo.name[j]}
                   condShow={0}
@@ -105,12 +113,13 @@ module.exports = React.createClass
                   atk={@props.enemyHp.atk[j]}
                   mvp={if @props.mvpPos[2] == j then true else false}/>
                 list.push <ProphetHp
+                  key={j*3+1}
                   lv={@props.enemyInfo.lv[j]}
                   now={@props.enemyHp.now[j]}
                   max={@props.enemyHp.max[j]}
                   dmg={@props.enemyHp.dmg[j]}
                   isBack={0}/>
-              <div key={j + 6} className="flex-row ship-item">
+              <div key={j*3+2} className="flex-row ship-item">
                 {list}
               </div>
           }
