@@ -8,18 +8,17 @@ CSON = require 'cson'
 {_, $, $$, React, ReactBootstrap, ROOT, resolveTime, layout, toggleModal} = window
 {Table, ProgressBar, Grid, Input, Col, Alert, Button, Divider} = ReactBootstrap
 {APPDATA_PATH, SERVER_HOSTNAME} = window
-i18n = require './node_modules/i18n'
-{__} = i18n
-BottomAlert = require './parts/bottom-alert'
-ProphetPanel = require './parts/prophet-panel'
-i18n.configure
-  locales: ['en-US', 'ja-JP', 'zh-CN']
+window.i18n.prophet = new(require 'i18n-2')
+  locales: ['en-US', 'ja-JP', 'zh-CN', 'zh-TW']
   defaultLocale: 'zh-CN'
   directory: path.join(__dirname, 'assets', 'i18n')
-  updateFiles: false
-  indent: '\t'
+  devMode: false
   extension: '.json'
-i18n.setLocale(window.language)
+window.i18n.prophet.setLocale(window.language)
+__ = window.i18n.prophet.__.bind(window.i18n.prophet)
+
+BottomAlert = require './parts/bottom-alert'
+ProphetPanel = require './parts/prophet-panel'
 
 window.addEventListener 'layout.change', (e) ->
   {layout} = e.detail
@@ -35,7 +34,7 @@ spotInfo = [
   __('Battle Avoid'),
   __('Air Strike'),
   __('Escort Success'),
-  __('Enemy Detected'),
+  __('Transport Munitions'),
   __('Manual Selection'),
   __('Aerial Recon')
 ]
@@ -112,9 +111,9 @@ getEnemyInfo = (enemyHp, enemyInfo, body, isPractice) ->
   enemyHp.max = Object.clone body.api_maxhps.slice(7, 13)
   for shipId, i in enemyInfo.lv
     continue if shipId == -1
-    enemyInfo.name[i] = $ships[shipId].api_name
+    enemyInfo.name[i] = window.i18n.resources.__ $ships[shipId].api_name
     if $ships[shipId].api_yomi != '-' && !isPractice
-      enemyInfo.name[i] = enemyInfo.name[i] + $ships[shipId].api_yomi
+      enemyInfo.name[i] = window.i18n.resources.__(enemyInfo.name[i]) + $ships[shipId].api_yomi
   enemyInfo.lv = Object.clone body.api_ship_lv.slice(1, 7)
 
 getResult = (sortieHp, enemyHp, combinedHp, leastHp, mvpPos) ->
@@ -382,7 +381,7 @@ module.exports =
   priority: 1
   displayName: <span><FontAwesome key={0} name='compass' />{' ' + __("Prophet")}</span>
   description: __ "Sortie Prophet"
-  version: '3.6.3'
+  version: '3.8.5'
   author: 'Chiba'
   link: 'https://github.com/Chibaheit'
   reactClass: React.createClass
@@ -412,7 +411,7 @@ module.exports =
       result: null
       enableProphetDamaged: config.get 'plugin.prophet.notify.damaged', true
       prophetCondShow: config.get 'plugin.prophet.show.cond', true
-      combinedFlag: 0
+      combinedFleet: false
       goBack: Object.clone initData
       compactMode: false
       mvpPos: Object.clone initMvp
@@ -425,7 +424,8 @@ module.exports =
       MAPSPOT: mapspot
     handleResponse: (e) ->
       {method, path, body, postBody} = e.detail
-      {sortieHp, enemyHp, combinedHp, sortieInfo, enemyInfo, combinedInfo, getShip, getItem, planeCount, enemyFormation, enemyIntercept, enemyName, result, enableProphetDamaged, prophetCondShow, combinedFlag, goBack, mvpPos, mapArea, mapCell, nowSpot, nextSpot, nextSpotKind} = @state
+      {sortieHp, enemyHp, combinedHp, sortieInfo, enemyInfo, combinedInfo, getShip, getItem, planeCount, enemyFormation, enemyIntercept, enemyName, result, enableProphetDamaged, prophetCondShow, combinedFleet, goBack, mvpPos, mapArea, mapCell, nowSpot, nextSpot, nextSpotKind} = @state
+      {$useitems} = window
       enableProphetDamaged = config.get 'plugin.prophet.notify.damaged', true
       prophetCondShow = config.get 'plugin.prophet.show.cond', true
       shouldRender = false
@@ -434,8 +434,8 @@ module.exports =
         when '/kcsapi/api_req_map/start'
           shouldRender = true
           if parseInt(postBody.api_deck_id) != 1
-            combinedFlag = 0
-          if combinedFlag == 0
+            combinedFleet = false
+          if not combinedFleet
             sortieInfo = Object.clone window._decks[postBody.api_deck_id - 1].api_ship
             combinedInfo = Object.clone initId
           else
@@ -497,6 +497,22 @@ module.exports =
             enemyHp.dmg[i] -= dayEnemyDmg[i]
             combinedHp.dmg[i] -= dayCombinedDmg[i]
 
+        when '/kcsapi/api_req_sortie/ld_airbattle'
+          shouldRender = true
+          # The damage in day battle
+          daySortieDmg = Object.clone sortieHp.dmg
+          dayEnemyDmg = Object.clone enemyHp.dmg
+          dayCombinedDmg = Object.clone combinedHp.dmg
+
+          getEnemyInfo enemyHp, enemyInfo, body, false
+
+          result = simulateBattle sortieHp, enemyHp, combinedHp, false, false, body, 0, planeCount, sortieInfo, combinedInfo, mvpPos
+
+          for i in [0..5]
+            sortieHp.dmg[i] -= daySortieDmg[i]
+            enemyHp.dmg[i] -= dayEnemyDmg[i]
+            combinedHp.dmg[i] -= dayCombinedDmg[i]
+
         # Practice battle
         when '/kcsapi/api_req_practice/battle', '/kcsapi/api_req_practice/midnight_battle'
           shouldRender = true
@@ -504,7 +520,7 @@ module.exports =
           if path == '/kcsapi/api_req_practice/battle'
             sortieHp.dmg[i] = enemyHp.dmg[i] = combinedHp.dmg[i] = sortieHp.atk[i] = enemyHp.atk[i] = combinedHp.atk[i] = 0 for i in [0..5]
             enemyName = __ 'PvP'
-            combinedFlag = 0
+            combinedFleet = false
             sortieInfo = Object.clone window._decks[postBody.api_deck_id - 1].api_ship
             getShipInfo sortieHp, sortieInfo
             getEnemyInfo enemyHp, enemyInfo, body, true
@@ -536,6 +552,20 @@ module.exports =
             enemyHp.dmg[i] -= dayEnemyDmg[i]
             combinedHp.dmg[i] -= dayCombinedDmg[i]
 
+        when '/kcsapi/api_req_combined_battle/ld_airbattle'
+          shouldRender = true
+          escapeId = towId = -1
+          isSurface = false
+          daySortieDmg = Object.clone sortieHp.dmg
+          dayEnemyDmg = Object.clone enemyHp.dmg
+          dayCombinedDmg = Object.clone combinedHp.dmg
+          getEnemyInfo enemyHp, enemyInfo, body, false
+          result = simulateBattle sortieHp, enemyHp, combinedHp, true, isSurface, body, 1, planeCount, sortieInfo, combinedInfo, mvpPos
+          for i in [0..5]
+            sortieHp.dmg[i] -= daySortieDmg[i]
+            enemyHp.dmg[i] -= dayEnemyDmg[i]
+            combinedHp.dmg[i] -= dayCombinedDmg[i]
+
         # Battle Result
         when '/kcsapi/api_req_practice/battle_result', '/kcsapi/api_req_sortie/battleresult', '/kcsapi/api_req_combined_battle/battleresult'
           shouldRender = true
@@ -549,27 +579,34 @@ module.exports =
                 tmpShip = tmpShip + _ships[sortieInfo[i]].api_name + " "
               if combinedHp.now[i] < (0.2500001 * combinedHp.max[i]) && goBack[6 + i] == 0
                 tmpShip = tmpShip + _ships[combinedInfo[i]].api_name + " "
-            if tmpShip != "" and @enableProphetDamaged
+            if tmpShip != "" and @state.enableProphetDamaged
               notify "#{tmpShip}" + __('Heavily damaged'),
                 type: 'damaged'
                 icon: join(ROOT, 'views', 'components', 'main', 'assets', 'img', 'state', '4.png')
+                audio: config.get('plugin.prophet.notify.damagedAudio')
             if body.api_get_ship?
               getShip = body.api_get_ship
             if body.api_get_useitem?
-              getItem = body.api_get_useitem
+              getItem = $useitems[body.api_get_useitem.api_useitem_id]?.api_name
           if body.api_mvp?
             mvpPos[0] = if body.api_mvp >= 2 then body.api_mvp - 1 else 0
           if body.api_mvp_combined?
             mvpPos[1] = if body.api_mvp_combined >= 2 then body.api_mvp_combined - 1 else 0
           result = body.api_win_rank
 
-        # Return to port
+        # Refresh deck status
         when '/kcsapi/api_port/port'
+        ,    '/kcsapi/api_req_hensei/change', '/kcsapi/api_req_hensei/preset_select' # Refresh if hensei changes
+        ,    '/kcsapi/api_req_nyukyo/start', '/kcsapi/api_req_nyukyo/speedchange' # Refresh when repairing
+        ,    '/kcsapi/api_req_kousyou/destroyship' # In case if any ship in the fleet is destroyed
+        ,    '/kcsapi/api_req_hensei/combined' # When combined fleet is formed/disbanded
           shouldRender = true
           goBack = Object.clone initData
-          combinedFlag = body.api_combined_flag
-          combinedFlag ?= 0
-          if combinedFlag == 0
+          combinedFleet = switch path
+            when '/kcsapi/api_port/port' then body.api_combined_flag? and body.api_combined_flag > 0
+            when '/kcsapi/api_req_hensei/combined' then parseInt(postBody.api_combined_type) > 0
+            else @state.combinedFleet
+          if not combinedFleet
             sortieInfo = Object.clone window._decks[0].api_ship
             combinedInfo = Object.clone initId
           else
@@ -626,7 +663,7 @@ module.exports =
           result: result
           enableProphetDamaged: enableProphetDamaged
           prophetCondShow: prophetCondShow
-          combinedFlag: combinedFlag
+          combinedFleet: combinedFleet
           goBack: goBack
           mvpPos: mvpPos
           # Compass

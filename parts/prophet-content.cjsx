@@ -33,6 +33,7 @@ module.exports = React.createClass
                     mvp={if @props.mvpPos[2] == j then true else false}/>
                   list.push <ProphetHp
                     key={++k}
+                    isFriend={0}
                     lv={@props.enemyInfo.lv[j]}
                     now={@props.enemyHp.now[j]}
                     max={@props.enemyHp.max[j]}
