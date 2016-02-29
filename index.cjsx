@@ -708,8 +708,8 @@ module.exports =
           enemyName={@state.enemyName}
           sortiePlane={@state.sortiePlane}
           enemyPlane={@state.enemyPlane}
-          cols={if @state.combinedFlag == 0 then 0 else 1}
-          lay={if layout == 'horizontal' || window.tabbed == 'single' then 0 else 1}
+          cols={if @state.combinedFleet then 1 else 0}
+          lay={if layout == 'horizontal' || window.doubleTabbed then 0 else 1}
           goBack={@state.goBack}
           compactMode={@state.compactMode}
           mvpPos = {@state.mvpPos}/>
